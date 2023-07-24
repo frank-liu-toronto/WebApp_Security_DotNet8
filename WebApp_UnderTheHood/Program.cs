@@ -5,7 +5,16 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
 {
-    options.Cookie.Name = "MyCookieAuth";
+    options.Cookie.Name = "MyCookieAuth";      
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
+    options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
+    options.AddPolicy("HRManagerOnly", policy => policy
+        .RequireClaim("Department", "HR")
+        .RequireClaim("Manager"));
 });
 
 var app = builder.Build();
