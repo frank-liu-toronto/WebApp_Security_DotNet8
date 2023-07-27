@@ -6,5 +6,28 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Human Resource Management</h1>
-
+    <br/>    
 </div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp C</th>
+            <th>Temp F</th>
+            <th>Summary</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.weatherForecastItems)
+        {
+            <tr>
+                <td>@item.Date.ToLongDateString()</td>
+                <td>@item.TemperatureC</td>
+                <td>@item.TemperatureF</td>
+                <td>@item.Summary</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
