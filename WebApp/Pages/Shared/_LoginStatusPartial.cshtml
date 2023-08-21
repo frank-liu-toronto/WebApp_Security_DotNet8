@@ -2,7 +2,7 @@
 
 @if (User == null || User.Identity == null || User.Identity.IsAuthenticated){
     <form method="post" class="form-inline" asp-page="/Account/Logout">
-        Welcome @User?.Identity?.Name
+        Welcome @User?.Identity?.Name (@User?.Claims.First(x => x.Type == "Position"))
         <button type="submit" class="ml-2 btn btn-link">Logout</button>
     </form>
 }
