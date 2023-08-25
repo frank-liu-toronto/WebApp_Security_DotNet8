@@ -39,6 +39,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.Configure<SmtpSetting>(builder.Configuration.GetSection("SMTP"));
 builder.Services.AddSingleton<IEmailService, EmailService>();
 
+builder.Services.AddAuthentication().AddFacebook(options =>
+{
+    options.AppId = builder.Configuration["FacebookAppId"] ?? string.Empty;
+    options.AppSecret = builder.Configuration["FacebookAppSecret"] ?? string.Empty;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

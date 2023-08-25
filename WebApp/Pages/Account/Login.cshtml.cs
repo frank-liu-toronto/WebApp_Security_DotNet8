@@ -20,8 +20,12 @@ namespace WebApp.Pages.Account
         [BindProperty]
         public CredentialViewModel Credential { get; set; } = new CredentialViewModel();
 
-        public void OnGet()
+        [BindProperty]
+        public IEnumerable<AuthenticationScheme> ExternalLoginProviders { get; set; }
+
+        public async Task OnGetAsync()
         {
+            this.ExternalLoginProviders = await signInManager.GetExternalAuthenticationSchemesAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -60,6 +64,14 @@ namespace WebApp.Pages.Account
 
                 return Page();
             }
+        }
+
+        public IActionResult OnPostLoginExternally(string provider)
+        {
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, null);
+            properties.RedirectUri = Url.Action("", "");
+
+            return Challenge(properties);
         }
     }
 
