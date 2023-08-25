@@ -42,11 +42,10 @@ namespace WebApp.Pages.Account
             {
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("/Account/LoginTwoFactor",
+                    return RedirectToPage("/Account/LoginTwoFactorWithAuthenticator",
                         new
                         {
-                            Email = this.Credential.Email,
-                            RememberMe = this.Credential.RememberMe
+                           this.Credential.RememberMe
                         });
                 }
 
